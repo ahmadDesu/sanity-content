@@ -24,11 +24,14 @@ Your data will show up here when you've configured everything correctly
       </div>
     </main>
 
+    <p id="text"></p>
+
     <script>
       // Select the DOM-element, so that you can replace it with content
       let PROJECT_ID = "mih1agps";
       let DATASET = "production";
       let QUERY = encodeURIComponent('*[_type == "post"]');
+      let text = document.getElementById("text");
 
       // Compose the URL for your project's endpoint and add the query
       let URL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${QUERY}`;
@@ -51,7 +54,9 @@ Your data will show up here when you've configured everything correctly
 
               // add the pet name as the text content
               listItem.textContent = post?.name;
+              const extractedText = post[0].content[0].children.map(child => child.text).join('');
 
+              text.textContent = extractedText;
               // add the item to the list
               list.appendChild(listItem);
             });
