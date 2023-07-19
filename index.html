@@ -62,7 +62,8 @@ Your data will show up here when you've configured everything correctly
                 if (child._type === "image") {
                   // If it's an image object, create an <img> element and set its src attribute
                   let img = document.createElement("img");
-                  img.src = `https://cdn.sanity.io/assets/${child.asset._ref}`;
+                  const imageRef = child.asset?._ref;
+                  img.src = `https://cdn.sanity.io/assets/${PROJECT_ID}/${DATASET}/${imageRef}`;
 
                   // You can add additional attributes, styles, and classes to the image if needed
                   // img.alt = "Alternative Text";
@@ -72,27 +73,29 @@ Your data will show up here when you've configured everything correctly
                   contentDiv.appendChild(img);
                 } else {
                   // If it's a text object, create a <p> element and apply formatting if necessary
-                  let paragraph = document.createElement("p");
-                  let span = document.createElement("span");
-                  span.textContent = child.text;
+                  if (child.text) {
+                    let paragraph = document.createElement("p");
+                    let span = document.createElement("span");
+                    span.textContent = child.text;
 
-                  if (child.marks) {
-                    if (child.marks.includes("strong")) {
-                      span.style.fontWeight = "bold"; // Apply bold formatting
+                    if (child.marks) {
+                      if (child.marks.includes("strong")) {
+                        span.style.fontWeight = "bold"; // Apply bold formatting
+                      }
+                      if (child.marks.includes("italic")) {
+                        span.style.fontStyle = "italic"; // Apply italic formatting
+                      }
+                      if (child.marks.includes("underline")) {
+                        span.style.textDecoration = "underline"; // Apply underline formatting
+                      }
+                      // Add more conditions for other rich text formatting marks as needed
                     }
-                    if (child.marks.includes("italic")) {
-                      span.style.fontStyle = "italic"; // Apply italic formatting
-                    }
-                    if (child.marks.includes("underline")) {
-                      span.style.textDecoration = "underline"; // Apply underline formatting
-                    }
-                    // Add more conditions for other rich text formatting marks as needed
+
+                    paragraph.appendChild(span);
+
+                    // Append the <p> element to the content <div>
+                    contentDiv.appendChild(paragraph);
                   }
-
-                  paragraph.appendChild(span);
-
-                  // Append the <p> element to the content <div>
-                  contentDiv.appendChild(paragraph);
                 }
               });
 
