@@ -54,7 +54,7 @@ Your data will show up here when you've configured everything correctly
 
               // add the pet name as the text content
               listItem.textContent = post?.name;
-              const extractedText = post[0].content[0].children.map(child => child.text).join('');
+              const extractedText = post?[0].content[0].children.map(child => child.text).join('');
 
               text.textContent = extractedText;
               // add the item to the list
