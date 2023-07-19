@@ -59,14 +59,14 @@ Your data will show up here when you've configured everything correctly
               let paragraph = document.createElement("p");
 
               // Extract the text from the post content and set it as the <p> content
-                const extractedText = post?.content[0]?.children
+              const extractedText = post?.content[0]?.children
                 .map((child) => {
-                  // Check for the "strong" mark and apply the bold class
+                  // Check for the "strong" mark and wrap it with <span> for bold formatting
                   if (child.marks && child.marks.includes("strong")) {
                     const span = document.createElement("span");
                     span.textContent = child.text;
                     span.classList.add("bold"); // Add the bold class
-                    return span;
+                    return span.outerHTML; // Return the HTML content of the span
                   } else {
                     return child.text;
                   }
