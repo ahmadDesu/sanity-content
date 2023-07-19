@@ -71,17 +71,6 @@ Your data will show up here when you've configured everything correctly
               list.appendChild(listItem);
             });
 
-            // Show content for all posts in a separate div
-            let contentContainer = document.getElementById("contentContainer");
-            result.forEach((post) => {
-              let contentItem = document.createElement("p");
-              const extractedText = post?.content[0]?.children
-                .map((child) => child.text)
-                .join("");
-              contentItem.textContent = extractedText;
-              contentContainer.appendChild(contentItem);
-            });
-
             let pre = document.querySelector("pre");
             // add the raw data to the preformatted element
             pre.textContent = JSON.stringify(result, null, 2);
