@@ -106,7 +106,9 @@ Your data will show up here when you've configured everything correctly
               list.appendChild(listItem);
             });
 
-            // ...
+            let pre = document.querySelector("pre");
+            // add the raw data to the preformatted element
+            pre.textContent = JSON.stringify(result, null, 2);
           }
         })
         .catch((err) => console.error(err));
