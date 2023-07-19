@@ -24,6 +24,7 @@ Your data will show up here when you've configured everything correctly
       </div>
     </main>
 
+    <!-- Each post's extracted content will be displayed here -->
     <p id="text"></p>
 
     <script>
@@ -40,7 +41,6 @@ Your data will show up here when you've configured everything correctly
       fetch(URL)
         .then((res) => res.json())
         .then(({ result }) => {
-          // get the list element, and the first item
           let list = document.querySelector("ul");
           let firstListItem = document.querySelector("ul li");
 
@@ -54,12 +54,23 @@ Your data will show up here when you've configured everything correctly
 
               // add the pet name as the text content
               listItem.textContent = post?.name;
-              const extractedText = post?[0].content[0].children.map(child => child.text).join('');
 
-              text.textContent = extractedText;
+              // Create a <p> element for the extracted content
+              let paragraph = document.createElement("p");
+
+              // Extract the text from the post content and set it as the <p> content
+              const extractedText = post?.content[0]?.children
+                .map((child) => child.text)
+                .join("");
+              paragraph.textContent = extractedText;
+
+              // Append the <p> element to the list item
+              listItem.appendChild(paragraph);
+
               // add the item to the list
               list.appendChild(listItem);
             });
+
             let pre = document.querySelector("pre");
             // add the raw data to the preformatted element
             pre.textContent = JSON.stringify(result, null, 2);
