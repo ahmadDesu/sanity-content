@@ -11,7 +11,7 @@
       <h1>Sanity + Vanilla JavaScript</h1>
     </header>
     <main>
-      <h2>Pets kontol</h2>
+      <h2>Pets</h2>
       <ul>
         <li>Loading pets…</li>
       </ul>
@@ -47,22 +47,13 @@ Your data will show up here when you've configured everything correctly
 
             result.forEach((post) => {
               // create a list element for each pet
-              for (let i = 0; i <= post; i++){
-                 document.writeln(`
-                 <div id="konten">
-                 <h1 id="judul">${post?.name}</h1>
-                 <p id="sub-judul">${post?.name}</p>
-                 </div>
-                `);
-              }
-              //let listItem = document.createElement("li");
+              let listItem = document.createElement("li");
 
               // add the pet name as the text content
-              //listItem.textContent = post?.name;
-              //listItem.textContent = post?.content;
+              listItem.textContent = post?.name;
 
               // add the item to the list
-              //list.appendChild(listItem);
+              list.appendChild(listItem);
             });
             let pre = document.querySelector("pre");
             // add the raw data to the preformatted element
