@@ -65,10 +65,8 @@ Your data will show up here when you've configured everything correctly
                   let img = document.createElement("img");
 
                   // Extract the image filename from the _ref property
-                  const imageRefParts = child.asset._ref.split("-");
-                  const imageFilename = imageRefParts[0] + ".jpg";
-
-                  img.src = `https://cdn.sanity.io/images/${PROJECT_ID}/${DATASET}/${imageFilename}`;
+                  const imageRef = child.asset._ref.replace("image-", ""); // Remove the "image-" prefix
+                  img.src = `https://cdn.sanity.io/images/${PROJECT_ID}/${DATASET}/${imageRef}`;
 
                   // You can add additional attributes, styles, and classes to the image if needed
                   // img.alt = "Alternative Text";
@@ -113,12 +111,14 @@ Your data will show up here when you've configured everything correctly
             });
 
             // ...
-            let pre = document.querySelector("pre");
-            // add the raw data to the preformatted element
-            pre.textContent = JSON.stringify(result, null, 2);
           }
         })
         .catch((err) => console.error(err));
     </script>
+
+    <!-- // ...
+            let pre = document.querySelector("pre");
+            // add the raw data to the preformatted element
+            pre.textContent = JSON.stringify(result, null, 2); -->
   </body>
 </html>
