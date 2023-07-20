@@ -14,50 +14,7 @@
 
     <script>
       // Function to get URL query parameters
-      function getQueryParam(param) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param);
-      }
-
-      // Function to decode URI component
-      function decodeParam(param) {
-        return decodeURIComponent(param);
-      }
-
-      // Retrieve the ID, title, PROJECT_ID, and DATASET from URL query parameters
-      const postId = getQueryParam("id");
-      const postTitle = decodeParam(getQueryParam("title"));
-      const projectParam = decodeParam(getQueryParam("project")); // Decode the PROJECT_ID value
-      const datasetParam = decodeParam(getQueryParam("dataset")); // Decode the DATASET value
-
-      // Function to fetch the detailed content of the post by ID
-      function fetchPostDetail() {
-        const detailUrl = `https://${projectParam}.api.sanity.io/v2021-10-21/data/doc/${datasetParam}/${postId}`; // Modify the URL
-
-        fetch(detailUrl)
-          .then((res) => res.json())
-          .then(({ _id, name, content }) => {
-            // ... (rest of the code)
-          })
-          .catch((err) => console.error(err));
-      }
-
-      // Call the function to fetch the post detail when the page loads
-      fetchPostDetail();
-
-      function fetchPostDetail() {
-        const detailUrl = `https://${projectParam}.api.sanity.io/v2021-10-21/data/doc/${datasetParam}/${postId}`;
-
-        fetch(detailUrl)
-          .then((res) => res.json())
-          .then(({ name, content }) => {
-            const postDetailDiv = document.getElementById("postDetail");
-            postDetailDiv.innerHTML = `<h2>${name}</h2>`;
-
-            // Iterate through the content and display it on the detail page
-          })
-          .catch((err) => console.error(err));
-      }
+      
     </script>
   </body>
 </html>

@@ -5,23 +5,15 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="style.css" />
   </head>
-
   <body>
     <header>
       <h1>Sanity + Vanilla JavaScript New</h1>
     </header>
     <main>
       <h2>Pets</h2>
-      <ul>
+      <ul id="postList">
         <li>Loading pets…</li>
       </ul>
-
-      <div>
-        <pre>
-¯\_(ツ)_/¯
-Your data will show up here when you've configured everything correctly
-        </pre>
-      </div>
     </main>
 
     <!-- Each post's extracted content will be displayed here -->
@@ -37,86 +29,66 @@ Your data will show up here when you've configured everything correctly
       // Compose the URL for your project's endpoint and add the query
       let URL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${QUERY}`;
 
-      // fetch the content
+      // Function to extract and display the first text and first image for each post
+      function extractPostData(post) {
+        let firstText = "";
+        const children = post?.content || [];
+        for (const child of children) {
+          if (
+            child._type === "block" &&
+            child.children &&
+            child.children[0]?.text
+          ) {
+            firstText = child.children[0].text;
+            break;
+          }
+        }
+
+        let firstImageSrc = "";
+        for (const child of children) {
+          if (child._type === "image" && child.asset?._ref) {
+            let imageRef = child.asset._ref;
+            if (imageRef.includes("image-")) {
+              imageRef = imageRef.replace("image-", "").replace("-jpg", ".jpg");
+              firstImageSrc = `https://cdn.sanity.io/images/${PROJECT_ID}/${DATASET}/${imageRef}`;
+              break;
+            }
+          }
+        }
+
+        return {
+          title: firstText,
+          thumbnailSrc: firstImageSrc,
+        };
+      }
+
+      // Fetch the content and populate the post list
       fetch(URL)
         .then((res) => res.json())
         .then(({ result }) => {
-          let list = document.querySelector("ul");
+          let list = document.getElementById("postList");
           let firstListItem = document.querySelector("ul li");
 
           if (result.length > 0) {
             // remove the placeholder content
             list.removeChild(firstListItem);
 
-            result.forEach((post) => {
+            result.forEach((post, index) => {
               let listItem = document.createElement("li");
+              listItem.textContent = extractPostData(post).title;
 
-              // Extract the first text from the content
-              let firstText = "";
-              const children = post?.content || [];
-              for (const child of children) {
-                if (
-                  child._type === "block" &&
-                  child.children &&
-                  child.children[0]?.text
-                ) {
-                  firstText = child.children[0].text;
-                  break;
-                }
-              }
-
-              listItem.textContent = firstText; // Set the first text as the title
-
-              // Extract the first image from the content
-              let firstImageSrc = "";
-              for (const child of children) {
-                if (child._type === "image" && child.asset?._ref) {
-                  // Extract the image filename from the _ref property
-                  let imageRef = child.asset._ref;
-                  if (imageRef.includes("image-")) {
-                    imageRef = imageRef
-                      .replace("image-", "")
-                      .replace("-jpg", ".jpg");
-                    firstImageSrc = `https://cdn.sanity.io/images/${PROJECT_ID}/${DATASET}/${imageRef}`;
-                    break;
-                  }
-                }
-              }
-
-              // Create an <img> element for the thumbnail
-              let thumbnailImg = document.createElement("img");
-              thumbnailImg.src = firstImageSrc;
-
-              // You can add additional attributes, styles, and classes to the thumbnail image if needed
-              // thumbnailImg.alt = "Alternative Text";
-              thumbnailImg.style.width = "300px";
-              thumbnailImg.style.height = "300px";
-
-              // Append the thumbnail <img> element to the list item
-              listItem.appendChild(thumbnailImg);
-
-              // Add a click event listener to the list item
               listItem.addEventListener("click", () => {
-                // Navigate to the detail page with the necessary data
-                const projectQueryParam = encodeURIComponent(PROJECT_ID);
-                const datasetQueryParam = encodeURIComponent(DATASET); // Add this line
-                const titleQueryParam = encodeURIComponent(firstText);
-                window.location.href = `/detail.html?id=${post._id}&project=${projectQueryParam}&dataset=${datasetQueryParam}&title=${titleQueryParam}`; // Modify the URL
+                // Pass the post data as URL query parameters when the list item is clicked
+                const postData = JSON.stringify(extractPostData(post));
+                const postDataQueryParam = encodeURIComponent(postData);
+                window.location.href = `/detail.html?data=${postDataQueryParam}`;
               });
 
-              // add the item to the list
               list.appendChild(listItem);
             });
-
-            // ...
           }
         })
         .catch((err) => console.error(err));
     </script>
-
-    <!-- // ...
-            let pre = document.querySelector("pre");
-            // add the raw data to the preformatted element
-            pre.textContent = JSON.stringify(result, null, 2); -->
   </body>
 </html>
