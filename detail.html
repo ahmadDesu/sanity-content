@@ -1,61 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Post Detail</title>
+    <title>Detail Page</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
     <header>
-      <h1>Post Detail</h1>
+      <h1>Post Details</h1>
     </header>
     <main>
-      <div id="postDetail">
-        <!-- Content will be dynamically added here -->
+      <div id="postDetails">
+        <!-- Post details will be displayed here -->
       </div>
     </main>
 
     <script>
-      // Function to get URL query parameters
-      function getQueryParam(param) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param);
-      }
-
       // Function to decode URI component
       function decodeParam(param) {
         return decodeURIComponent(param);
       }
 
-      // Retrieve the post data from URL query parameter
-      const postDataQueryParam = getQueryParam("data");
-      const postData = JSON.parse(decodeParam(postDataQueryParam));
+      // Get the URL query parameter "data"
+      const urlParams = new URLSearchParams(window.location.search);
+      const postDataParam = urlParams.get("data");
 
-      // Function to display the post detail
-      function displayPostDetail() {
-        const postDetailDiv = document.getElementById("postDetail");
-        const { title, thumbnailSrc } = postData;
+      // Decode and parse the post data back into a JavaScript object
+      const postData = JSON.parse(decodeParam(postDataParam));
 
-        // Create the title element and set the title
-        const titleElement = document.createElement("h2");
-        titleElement.textContent = title;
+      // Display the post details on the page
+      const postDetailsContainer = document.getElementById("postDetails");
+      if (postData) {
+        const postTitle = document.createElement("h2");
+        postTitle.textContent = postData.name || "No Title";
 
-        // Create the thumbnail image element and set the source and attributes
-        const thumbnailImg = document.createElement("img");
-        thumbnailImg.src = thumbnailSrc;
-        thumbnailImg.alt = title;
-        thumbnailImg.style.width = "300px";
-        thumbnailImg.style.height = "300px";
+        const postContent = document.createElement("div");
+        const children = postData.content || [];
+        for (const child of children) {
+          if (
+            child._type === "block" &&
+            child.children &&
+            child.children[0]?.text
+          ) {
+            const paragraph = document.createElement("p");
+            paragraph.textContent = child.children[0].text;
+            postContent.appendChild(paragraph);
+          } else if (child._type === "image" && child.asset?._ref) {
+            const imageRef = child.asset._ref;
+            if (imageRef.includes("image-")) {
+              const imageSrc = `https://cdn.sanity.io/images/mih1agps/production/${imageRef
+                .replace("image-", "")
+                .replace("-jpg", ".jpg")}`;
+              const imageElement = document.createElement("img");
+              imageElement.src = imageSrc;
+              imageElement.style.width = "300px";
+              imageElement.style.height = "300px";
+              postContent.appendChild(imageElement);
+            }
+          }
+        }
 
-        // Append the title and thumbnail image elements to the post detail div
-        postDetailDiv.appendChild(titleElement);
-        postDetailDiv.appendChild(thumbnailImg);
+        postDetailsContainer.appendChild(postTitle);
+        postDetailsContainer.appendChild(postContent);
+      } else {
+        const errorMessage = document.createElement("p");
+        errorMessage.textContent = "Post data not found.";
+        postDetailsContainer.appendChild(errorMessage);
       }
-
-      // Call the function to display the post detail when the page loads
-      document.addEventListener("DOMContentLoaded", () => {
-        displayPostDetail();
-      });
     </script>
   </body>
 </html>
