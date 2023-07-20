@@ -20,7 +20,8 @@
         <pre>
 ¯\_(ツ)_/¯
 Your data will show up here when you've configured everything correctly
-        </pre>
+            </pre
+        >
       </div>
     </main>
 
@@ -36,6 +37,11 @@ Your data will show up here when you've configured everything correctly
 
       // Compose the URL for your project's endpoint and add the query
       let URL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${QUERY}`;
+
+      // Function to encode URI component
+      function encodeParam(param) {
+        return encodeURIComponent(param);
+      }
 
       // fetch the content
       fetch(URL)
@@ -64,8 +70,6 @@ Your data will show up here when you've configured everything correctly
                   break;
                 }
               }
-
-              listItem.textContent = post?.name;
 
               listItem.textContent = firstText; // Set the first text as the title
 
@@ -96,6 +100,13 @@ Your data will show up here when you've configured everything correctly
 
               // Append the thumbnail <img> element to the list item
               listItem.appendChild(thumbnailImg);
+
+              // Add a click event listener to the list item
+              listItem.addEventListener("click", () => {
+                // Encode the post data and send it as a query parameter to detail.html
+                const postDataQueryParam = encodeParam(JSON.stringify(post));
+                window.location.href = `detail.html?data=${postDataQueryParam}`;
+              });
 
               // add the item to the list
               list.appendChild(listItem);
