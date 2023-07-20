@@ -38,7 +38,6 @@ Your data will show up here when you've configured everything correctly
       let URL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${QUERY}`;
 
       // fetch the content
-      // fetch the content
       fetch(URL)
         .then((res) => res.json())
         .then(({ result }) => {
@@ -64,8 +63,8 @@ Your data will show up here when you've configured everything correctly
                   // If it's an image object, create an <img> element and set its src attribute
                   let img = document.createElement("img");
 
-                  // Extract the image filename from the _ref property
-                  const imageRef = child.asset._ref.replace("image-", ""); // Remove the "image-" prefix
+                  // Extract the image filename from the _ref property and replace "-jpg" with ".jpg"
+                  const imageRef = child.asset._ref.replace("-jpg", ".jpg");
                   img.src = `https://cdn.sanity.io/images/${PROJECT_ID}/${DATASET}/${imageRef}`;
 
                   // You can add additional attributes, styles, and classes to the image if needed
