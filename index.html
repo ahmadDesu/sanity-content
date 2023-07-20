@@ -20,7 +20,7 @@
         <pre>
 ¯\_(ツ)_/¯
 Your data will show up here when you've configured everything correctly
-            </pre
+      </pre
         >
       </div>
     </main>
@@ -34,9 +34,6 @@ Your data will show up here when you've configured everything correctly
       let DATASET = "production";
       let QUERY = encodeURIComponent('*[_type == "post"]');
       let text = document.getElementById("text");
-
-      // Compose the URL for your project's endpoint and add the query
-      let URL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${QUERY}`;
 
       // Function to encode URI component
       function encodeParam(param) {
@@ -55,26 +52,20 @@ Your data will show up here when you've configured everything correctly
             list.removeChild(firstListItem);
 
             result.forEach((post) => {
+              // Extract the name as the subtitle
+              let name = post.name || "No Name";
+
               let listItem = document.createElement("li");
 
-              // Extract the first text from the content
-              let firstText = "";
-              const children = post?.content || [];
-              for (const child of children) {
-                if (
-                  child._type === "block" &&
-                  child.children &&
-                  child.children[0]?.text
-                ) {
-                  firstText = child.children[0].text;
-                  break;
-                }
-              }
+              // Create an <h3> element for the subtitle
+              let subtitle = document.createElement("h3");
+              subtitle.textContent = name;
 
-              listItem.textContent = firstText; // Set the first text as the title
+              listItem.appendChild(subtitle); // Add the subtitle to the list item
 
               // Extract the first image from the content
               let firstImageSrc = "";
+              const children = post?.content || [];
               for (const child of children) {
                 if (child._type === "image" && child.asset?._ref) {
                   // Extract the image filename from the _ref property
@@ -111,19 +102,9 @@ Your data will show up here when you've configured everything correctly
               // add the item to the list
               list.appendChild(listItem);
             });
-
-            // ...
-            let pre = document.querySelector("pre");
-            // add the raw data to the preformatted element
-            pre.textContent = JSON.stringify(result, null, 2);
           }
         })
         .catch((err) => console.error(err));
     </script>
-
-    <!-- // ...
-            let pre = document.querySelector("pre");
-            // add the raw data to the preformatted element
-            pre.textContent = JSON.stringify(result, null, 2); -->
   </body>
 </html>
