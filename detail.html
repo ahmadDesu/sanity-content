@@ -24,14 +24,15 @@
         return decodeURIComponent(param);
       }
 
-      // Retrieve the ID, title, and PROJECT_ID from URL query parameters
+      // Retrieve the ID, title, PROJECT_ID, and DATASET from URL query parameters
       const postId = getQueryParam("id");
       const postTitle = decodeParam(getQueryParam("title"));
       const projectParam = decodeParam(getQueryParam("project")); // Decode the PROJECT_ID value
+      const datasetParam = decodeParam(getQueryParam("dataset")); // Decode the DATASET value
 
       // Function to fetch the detailed content of the post by ID
       function fetchPostDetail() {
-        const detailUrl = `https://${projectParam}.api.sanity.io/v2021-10-21/data/doc/${DATASET}/${postId}`;
+        const detailUrl = `https://${projectParam}.api.sanity.io/v2021-10-21/data/doc/${datasetParam}/${postId}`; // Modify the URL
 
         fetch(detailUrl)
           .then((res) => res.json())
