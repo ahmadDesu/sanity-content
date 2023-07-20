@@ -50,79 +50,55 @@ Your data will show up here when you've configured everything correctly
 
             result.forEach((post) => {
               let listItem = document.createElement("li");
-              listItem.textContent = post?.name;
 
-              // Create a <div> element for the extracted content
-              let contentDiv = document.createElement("div");
-
-              // Extract the content from the post and set it as the content of the <div>
+              // Extract the first text from the content
+              let firstText = "";
               const children = post?.content || [];
+              for (const child of children) {
+                if (
+                  child._type === "block" &&
+                  child.children &&
+                  child.children[0]?.text
+                ) {
+                  firstText = child.children[0].text;
+                  break;
+                }
+              }
 
-              children.forEach((child) => {
-                if (child._type === "image") {
-                  // If it's an image object, create an <img> element and set its src attribute
-                  let img = document.createElement("img");
+              listItem.textContent = firstText; // Set the first text as the title
 
+              // Extract the first image from the content
+              let firstImageSrc = "";
+              for (const child of children) {
+                if (child._type === "image" && child.asset?._ref) {
                   // Extract the image filename from the _ref property
                   let imageRef = child.asset._ref;
-
-                  // Check if the imageRef contains "image-" prefix and remove it if present
                   if (imageRef.includes("image-")) {
-                    imageRef = imageRef.replace("image-", "");
+                    imageRef = imageRef
+                      .replace("image-", "")
+                      .replace("-jpg", ".jpg");
+                    firstImageSrc = `https://cdn.sanity.io/images/${PROJECT_ID}/${DATASET}/${imageRef}`;
+                    break;
                   }
-
-                  // Replace "-jpg" with ".jpg" in the imageRef
-                  imageRef = imageRef.replace("-jpg", ".jpg");
-
-                  img.src = `https://cdn.sanity.io/images/${PROJECT_ID}/${DATASET}/${imageRef}`;
-
-                  // You can add additional attributes, styles, and classes to the image if needed
-                  // img.alt = "Alternative Text";
-                  img.style.width = "300px";
-                  img.style.height = "300px";
-
-                  // Append the <img> element to the content <div>
-                  contentDiv.appendChild(img);
-                } else if (child.children) {
-                  // If it's a text object with content, create a <p> element and apply formatting if necessary
-                  let paragraph = document.createElement("p");
-
-                  child.children.forEach((childElement) => {
-                    let span = document.createElement("span");
-                    span.textContent = childElement.text;
-
-                    if (childElement.marks) {
-                      if (childElement.marks.includes("strong")) {
-                        span.style.fontWeight = "bold"; // Apply bold formatting
-                      }
-                      if (childElement.marks.includes("italic")) {
-                        span.style.fontStyle = "italic"; // Apply italic formatting
-                      }
-                      if (childElement.marks.includes("underline")) {
-                        span.style.textDecoration = "underline"; // Apply underline formatting
-                      }
-                      // Add more conditions for other rich text formatting marks as needed
-                    }
-
-                    paragraph.appendChild(span);
-                  });
-
-                  // Append the <p> element to the content <div>
-                  contentDiv.appendChild(paragraph);
                 }
-              });
+              }
 
-              // Append the content <div> to the list item
-              listItem.appendChild(contentDiv);
+              // Create an <img> element for the thumbnail
+              let thumbnailImg = document.createElement("img");
+              thumbnailImg.src = firstImageSrc;
+
+              // You can add additional attributes, styles, and classes to the thumbnail image if needed
+              // thumbnailImg.alt = "Alternative Text";
+              // thumbnailImg.style.maxWidth = "100%";
+
+              // Append the thumbnail <img> element to the list item
+              listItem.appendChild(thumbnailImg);
 
               // add the item to the list
               list.appendChild(listItem);
             });
 
             // ...
-            let pre = document.querySelector("pre");
-            // add the raw data to the preformatted element
-            pre.textContent = JSON.stringify(result, null, 2);
           }
         })
         .catch((err) => console.error(err));
