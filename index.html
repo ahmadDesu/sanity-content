@@ -53,6 +53,7 @@ Your data will show up here when you've configured everything correctly
           if (result.length > 0) {
             // remove the placeholder content
             list.removeChild(firstListItem);
+            listItem.textContent = post?.name;
 
             result.forEach((post) => {
               let listItem = document.createElement("li");
