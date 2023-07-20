@@ -55,26 +55,6 @@
             postDetailDiv.innerHTML = `<h2>${name}</h2>`;
 
             // Iterate through the content and display it on the detail page
-            content.forEach((block) => {
-              if (block._type === "block" && block.children) {
-                const paragraph = document.createElement("p");
-                paragraph.textContent = block.children
-                  .map((child) => child.text)
-                  .join("");
-                postDetailDiv.appendChild(paragraph);
-              } else if (block._type === "image" && block.asset?._ref) {
-                const imageRef = block.asset._ref
-                  .replace("image-", "")
-                  .replace("-jpg", ".jpg");
-                const imgSrc = `https://cdn.sanity.io/images/${projectParam}/${datasetParam}/${imageRef}`;
-                const image = document.createElement("img");
-                image.src = imgSrc;
-                // You can add additional attributes, styles, and classes to the image if needed
-                // image.alt = "Alternative Text";
-                // image.style.maxWidth = "100%";
-                postDetailDiv.appendChild(image);
-              }
-            });
           })
           .catch((err) => console.error(err));
       }
