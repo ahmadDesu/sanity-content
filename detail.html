@@ -1,20 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>Post Detail</title>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Detail Page</title>
-    <!-- Add any additional CSS or styles for your detail page -->
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Post Detail</h1>
-    <div id="postDetail">
-      <!-- Content will be dynamically added here -->
-    </div>
+    <header>
+      <h1>Post Detail</h1>
+    </header>
+    <main>
+      <div id="postDetail">
+        <!-- Content will be dynamically added here -->
+      </div>
+    </main>
 
     <script>
       // Function to get URL query parameters
-      
+      function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+      }
+
+      // Function to decode URI component
+      function decodeParam(param) {
+        return decodeURIComponent(param);
+      }
+
+      // Retrieve the post data from URL query parameter
+      const postDataQueryParam = getQueryParam("data");
+      const postData = JSON.parse(decodeParam(postDataQueryParam));
+
+      // Function to display the post detail
+      function displayPostDetail() {
+        const postDetailDiv = document.getElementById("postDetail");
+        const { title, thumbnailSrc } = postData;
+
+        // Create the title element and set the title
+        const titleElement = document.createElement("h2");
+        titleElement.textContent = title;
+
+        // Create the thumbnail image element and set the source and attributes
+        const thumbnailImg = document.createElement("img");
+        thumbnailImg.src = thumbnailSrc;
+        thumbnailImg.alt = title;
+        thumbnailImg.style.width = "300px";
+        thumbnailImg.style.height = "300px";
+
+        // Append the title and thumbnail image elements to the post detail div
+        postDetailDiv.appendChild(titleElement);
+        postDetailDiv.appendChild(thumbnailImg);
+      }
+
+      // Call the function to display the post detail when the page loads
+      document.addEventListener("DOMContentLoaded", () => {
+        displayPostDetail();
+      });
     </script>
   </body>
 </html>
