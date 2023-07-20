@@ -89,10 +89,19 @@ Your data will show up here when you've configured everything correctly
 
               // You can add additional attributes, styles, and classes to the thumbnail image if needed
               // thumbnailImg.alt = "Alternative Text";
-              // thumbnailImg.style.maxWidth = "100%";
+              thumbnailImg.style.width = "300px";
+              thumbnailImg.style.height = "300px";
 
               // Append the thumbnail <img> element to the list item
               listItem.appendChild(thumbnailImg);
+
+              // Add a click event listener to the list item
+              listItem.addEventListener("click", () => {
+                // Navigate to the detail page with the necessary data
+                window.location.href = `/detail-page.html?id=${
+                  post._id
+                }&title=${encodeURIComponent(firstText)}`;
+              });
 
               // add the item to the list
               list.appendChild(listItem);

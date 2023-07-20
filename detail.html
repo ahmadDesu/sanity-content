@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail Page</title>
+    <!-- Add any additional CSS or styles for your detail page -->
+  </head>
+  <body>
+    <h1>Post Detail</h1>
+    <div id="postDetail">
+      <!-- Content will be dynamically added here -->
+    </div>
+
+    <script>
+      // Function to get URL query parameters
+      function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+      }
+
+      // Function to decode URI component
+      function decodeParam(param) {
+        return decodeURIComponent(param);
+      }
+
+      // Retrieve the ID and title from URL query parameters
+      const postId = getQueryParam("id");
+      const postTitle = decodeParam(getQueryParam("title"));
+
+      // Function to fetch the detailed content of the post by ID
+      function fetchPostDetail() {
+        const detailUrl = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/doc/${DATASET}/${postId}`;
+
+        fetch(detailUrl)
+          .then((res) => res.json())
+          .then(({ _id, name, content }) => {
+            const postDetailDiv = document.getElementById("postDetail");
+            postDetailDiv.innerHTML = `<h2>${name}</h2>`;
+
+            // Iterate through the content and display it on the detail page
+            content.forEach((block) => {
+              if (block._type === "block" && block.children) {
+                const paragraph = document.createElement("p");
+                paragraph.textContent = block.children
+                  .map((child) => child.text)
+                  .join("");
+                postDetailDiv.appendChild(paragraph);
+              } else if (block._type === "image" && block.asset?._ref) {
+                const imageRef = block.asset._ref
+                  .replace("image-", "")
+                  .replace("-jpg", ".jpg");
+                const imgSrc = `https://cdn.sanity.io/images/${PROJECT_ID}/${DATASET}/${imageRef}`;
+                const image = document.createElement("img");
+                image.src = imgSrc;
+                // You can add additional attributes, styles, and classes to the image if needed
+                // image.alt = "Alternative Text";
+                // image.style.maxWidth = "100%";
+                postDetailDiv.appendChild(image);
+              }
+            });
+          })
+          .catch((err) => console.error(err));
+      }
+
+      // Call the function to fetch the post detail when the page loads
+      fetchPostDetail();
+    </script>
+  </body>
+</html>
