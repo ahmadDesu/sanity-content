@@ -63,7 +63,7 @@ Your data will show up here when you've configured everything correctly
                 if (child._type === "image") {
                   // If it's an image object, create an <img> element and set its src attribute
                   let img = document.createElement("img");
-                  img.src = `https://cdn.sanity.io/images/mih1agps/production/2e8a27f7c1ddc19b2f668fbbdcd400512e2452d6-3000x2000.jpg`;
+                  img.src = `https://cdn.sanity.io/images/mih1agps/production/${child.asset._ref}`;
 
                   // You can add additional attributes, styles, and classes to the image if needed
                   // img.alt = "Alternative Text";
