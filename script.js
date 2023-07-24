@@ -25,7 +25,9 @@ fetch(
       list.className = "post-list";
 
       result.forEach((post) => {
-        let listItem = document.createElement("li");
+          let listItem = document.createElement("li");
+          
+          listItem.className = "post__list-item"
 
         // Use the 'name' property as the title
         let title = post.name || "No Title";
