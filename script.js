@@ -22,6 +22,8 @@ fetch(
       // remove the placeholder content
       list.removeChild(firstListItem);
 
+      list.className = "post-list";
+
       result.forEach((post) => {
         let listItem = document.createElement("li");
 
@@ -63,10 +65,10 @@ fetch(
         let thumbnailImg = document.createElement("img");
         thumbnailImg.src = firstImageSrc;
 
+          thumbnailImg.className = "post__img-thumbnail"
         // You can add additional attributes, styles, and classes to the thumbnail image if needed
         // thumbnailImg.alt = "Alternative Text";
-        thumbnailImg.style.width = "300px";
-        thumbnailImg.style.height = "300px";
+        
 
         // Append the thumbnail <img> element to the list item
         listItem.appendChild(thumbnailImg);
