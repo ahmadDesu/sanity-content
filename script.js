@@ -4,6 +4,11 @@ let DATASET = "production";
 let QUERY = encodeURIComponent('*[_type == "post"]');
 let text = document.getElementById("text");
 
+
+let titlePost = document.getElementById("title-post");
+let subtitlePost = document.getElementById("subtitle-post");
+let thumbnailPost = document.getElementById("thumbnail-post");
+
 // Function to encode URI component
 function encodeParam(param) {
   return encodeURIComponent(param);
@@ -22,16 +27,16 @@ fetch(
       // remove the placeholder content
       list.removeChild(firstListItem);
 
-      list.className = "post-list";
 
       result.forEach((post) => {
           let listItem = document.createElement("li");
           
-          listItem.className = "post__list-item"
 
         // Use the 'name' property as the title
-        let title = post.name || "No Title";
-        let subtitle = "";
+        //let title = post.name || "No Title";
+        //let subtitle = "";
+        titlePost = post.name || "No Title";
+        subtitlePost = "";
 
         // Extract the first text from the content as the subtitle
         const children = post?.content || [];
@@ -47,33 +52,33 @@ fetch(
         }
 
         // Set the title and subtitle for the list item
-        listItem.innerHTML = `<strong>${title}</strong><br>${subtitle}`;
+        listItem.innerHTML = `<strong>${titlePost}</strong><br>${subtitlePost}`;
 
         // Extract the first image from the content
-        let firstImageSrc = "";
+        thumbnailPost = "";
         for (const child of children) {
           if (child._type === "image" && child.asset?._ref) {
             // Extract the image filename from the _ref property
             let imageRef = child.asset._ref;
             if (imageRef.includes("image-")) {
               imageRef = imageRef.replace("image-", "").replace("-jpg", ".jpg");
-              firstImageSrc = `https://cdn.sanity.io/images/${PROJECT_ID}/${DATASET}/${imageRef}`;
+              thumbnailPost = `https://cdn.sanity.io/images/${PROJECT_ID}/${DATASET}/${imageRef}`;
               break;
             }
           }
         }
 
         // Create an <img> element for the thumbnail
-        let thumbnailImg = document.createElement("img");
-        thumbnailImg.src = firstImageSrc;
+        //let thumbnailImg = document.createElement("img");
+        thumbnailPost = thumbnailPost;
 
-          thumbnailImg.className = "post__img-thumbnail"
+          //thumbnailImg.className = "post__img-thumbnail"
         // You can add additional attributes, styles, and classes to the thumbnail image if needed
         // thumbnailImg.alt = "Alternative Text";
         
 
         // Append the thumbnail <img> element to the list item
-        listItem.appendChild(thumbnailImg);
+        listItem.appendChild(thumbnailPost);
 
         // Add a click event listener to the list item
         listItem.addEventListener("click", () => {
