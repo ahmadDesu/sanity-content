@@ -4,7 +4,6 @@ let DATASET = "production";
 let QUERY = encodeURIComponent('*[_type == "post"]');
 let text = document.getElementById("text");
 
-
 let titlePost = document.getElementById("title-post");
 let subtitlePost = document.getElementById("subtitle-post");
 let thumbnailPost = document.getElementById("thumbnail-post");
@@ -27,10 +26,8 @@ fetch(
       // remove the placeholder content
       list.removeChild(firstListItem);
 
-
       result.forEach((post) => {
-          let listItem = document.createElement("li");
-          
+        let listItem = document.createElement("li");
 
         // Use the 'name' property as the title
         //let title = post.name || "No Title";
@@ -72,10 +69,11 @@ fetch(
         let thumbnailImg = document.createElement("img");
         thumbnailImg.src = firstImageSrc;
 
-          thumbnailImg.className = "post__img-thumbnail"
+        thumbnailImg.className = "post__img-thumbnail";
         // You can add additional attributes, styles, and classes to the thumbnail image if needed
         // thumbnailImg.alt = "Alternative Text";
-        
+        thumbnailImg.style.width = "300px";
+        thumbnailImg.style.height = "300px";
 
         // Append the thumbnail <img> element to the list item
         listItem.appendChild(thumbnailImg);
