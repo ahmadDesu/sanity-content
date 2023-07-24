@@ -35,6 +35,7 @@ fetch(
         titlePost = post.name || "No Title";
         subtitlePost = "";
 
+        titlePost.className = "title-post";
         // Extract the first text from the content as the subtitle
         const children = post?.content || [];
         for (const child of children) {
