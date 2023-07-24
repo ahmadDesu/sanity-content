@@ -72,11 +72,11 @@ fetch(
         // thumbnailImg.className = "post__img-thumbnail";
         // You can add additional attributes, styles, and classes to the thumbnail image if needed
         // thumbnailImg.alt = "Alternative Text";
-        thumbnailImg.style.width = "300px";
-        thumbnailImg.style.height = "300px";
+        thumbnailPost.style.width = "300px";
+        thumbnailPost.style.height = "300px";
 
         // Append the thumbnail <img> element to the list item
-        listItem.appendChild(thumbnailImg);
+        listItem.appendChild(thumbnailPost);
 
         // Add a click event listener to the list item
         listItem.addEventListener("click", () => {
