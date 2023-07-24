@@ -13,6 +13,9 @@ post__list-item {
   height: auto;
 }
 
+h1{
+  color: red;
+}
 .title-post{
   color: red;
 }
