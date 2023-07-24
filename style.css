@@ -12,3 +12,10 @@ post__list-item {
   width: 100%;
   height: auto;
 }
+
+.title-post{
+  color: red;
+}
+.subtitle-post{
+  color: yellowgreen;
+}
