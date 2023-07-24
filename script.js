@@ -55,30 +55,30 @@ fetch(
         listItem.innerHTML = `<strong>${titlePost}</strong><br>${subtitlePost}`;
 
         // Extract the first image from the content
-        thumbnailPost = "";
+        firstImageSrc = "";
         for (const child of children) {
           if (child._type === "image" && child.asset?._ref) {
             // Extract the image filename from the _ref property
             let imageRef = child.asset._ref;
             if (imageRef.includes("image-")) {
               imageRef = imageRef.replace("image-", "").replace("-jpg", ".jpg");
-              thumbnailPost = `https://cdn.sanity.io/images/${PROJECT_ID}/${DATASET}/${imageRef}`;
+              firstImageSrc = `https://cdn.sanity.io/images/${PROJECT_ID}/${DATASET}/${imageRef}`;
               break;
             }
           }
         }
 
         // Create an <img> element for the thumbnail
-        //let thumbnailImg = document.createElement("img");
-        thumbnailPost = thumbnailPost;
+        let thumbnailImg = document.createElement("img");
+        thumbnailImg.src = firstImageSrc;
 
-          //thumbnailImg.className = "post__img-thumbnail"
+          thumbnailImg.className = "post__img-thumbnail"
         // You can add additional attributes, styles, and classes to the thumbnail image if needed
         // thumbnailImg.alt = "Alternative Text";
         
 
         // Append the thumbnail <img> element to the list item
-        listItem.appendChild(thumbnailPost);
+        listItem.appendChild(thumbnailImg);
 
         // Add a click event listener to the list item
         listItem.addEventListener("click", () => {
