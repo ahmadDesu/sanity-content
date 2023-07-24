@@ -7,7 +7,6 @@ let text = document.getElementById("text");
 let titlePost = document.getElementById("title-post");
 let subtitlePost = document.getElementById("subtitle-post");
 let thumbnailPost = document.getElementById("thumbnail-post");
-thumbnailPost.src = "";
 
 // Function to encode URI component
 function encodeParam(param) {
@@ -67,17 +66,17 @@ fetch(
         }
 
         // Create an <img> element for the thumbnail
-        let thumbnailImg = document.createElement("img");
-        thumbnailImg.src = firstImageSrc;
+        //let thumbnailImg = document.createElement("img");
+        thumbnailPost.src = firstImageSrc;
 
         // thumbnailImg.className = "post__img-thumbnail";
         // You can add additional attributes, styles, and classes to the thumbnail image if needed
         // thumbnailImg.alt = "Alternative Text";
-        thumbnailImg.style.width = "300px";
-        thumbnailImg.style.height = "300px";
+        thumbnailPost.style.width = "300px";
+        thumbnailPost.style.height = "300px";
 
         // Append the thumbnail <img> element to the list item
-        listItem.appendChild(thumbnailImg);
+        listItem.appendChild(thumbnailPost);
 
         // Add a click event listener to the list item
         listItem.addEventListener("click", () => {
