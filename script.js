@@ -67,6 +67,7 @@ fetch(
 
         // Create an <img> element for the thumbnail
         // let thumbnailImg = document.createElement("img");
+        let thumbnailPost = document.getElementById("thumbnail-post");
         thumbnailPost.src = firstImageSrc;
         console.info(thumbnailPost);
         // thumbnailImg.className = "post__img-thumbnail";
