@@ -19,10 +19,10 @@ fetch(
 )
   .then((res) => res.json())
   .then(({ result }) => {
-    //let list = document.querySelector("ul");
-      let list = document.getElementById("post-list")
-    //let firstListItem = document.querySelector("ul li");
-    let firstListItem = document.getElementById("post__list-item");
+    let list = document.querySelector("ul");
+      //let list = document.getElementById("post-list")
+    let firstListItem = document.querySelector("ul li");
+    //let firstListItem = document.getElementById("post__list-item");
 
     if (result.length > 0) {
       // remove the placeholder content
