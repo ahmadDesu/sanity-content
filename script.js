@@ -43,7 +43,7 @@ fetch(
             child.children &&
             child.children[0]?.text
           ) {
-            subtitle = child.children[0].text;
+            subtitlePost = child.children[0].text;
             break;
           }
         }
