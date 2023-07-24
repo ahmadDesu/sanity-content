@@ -35,7 +35,6 @@ fetch(
         titlePost = post.name || "No Title";
         subtitlePost = "";
 
-        titlePost.className = "title-post";
         // Extract the first text from the content as the subtitle
         const children = post?.content || [];
         for (const child of children) {
@@ -77,8 +76,8 @@ fetch(
         // thumbnailImg.className = "post__img-thumbnail";
         // You can add additional attributes, styles, and classes to the thumbnail image if needed
         // thumbnailImg.alt = "Alternative Text";
-        thumbnailImg.style.width = "300px";
-        thumbnailImg.style.height = "300px";
+        //thumbnailImg.style.width = "300px";
+        //thumbnailImg.style.height = "300px";
 
         // Append the thumbnail <img> element to the list item
         listItem.appendChild(thumbnailImg);
