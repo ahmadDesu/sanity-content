@@ -6,7 +6,7 @@ let text = document.getElementById("text");
 
 let titlePost = document.getElementById("title-post");
 let subtitlePost = document.getElementById("subtitle-post");
-let thumbnailPost = document.getElementById("thumbnail-post");
+
 
 // Function to encode URI component
 function encodeParam(param) {
@@ -67,8 +67,7 @@ fetch(
 
         // Create an <img> element for the thumbnail
         //let thumbnailImg = document.createElement("img");
-        thumbnailPost.src = firstImageSrc;
-
+        let thumbnailPost = document.getElementById("thumbnail-post").src = `${firstImageSrc}`;
         // thumbnailImg.className = "post__img-thumbnail";
         // You can add additional attributes, styles, and classes to the thumbnail image if needed
         // thumbnailImg.alt = "Alternative Text";
