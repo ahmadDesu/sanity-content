@@ -68,7 +68,7 @@ fetch(
         // Create an <img> element for the thumbnail
         // let thumbnailImg = document.createElement("img");
         thumbnailPost.src = firstImageSrc;
-
+        console.info(thumbnailPost);
         // thumbnailImg.className = "post__img-thumbnail";
         // You can add additional attributes, styles, and classes to the thumbnail image if needed
         // thumbnailImg.alt = "Alternative Text";
