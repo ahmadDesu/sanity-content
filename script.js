@@ -62,7 +62,8 @@ fetch(
 
         // Set the title and subtitle for the list item
         listItem.innerHTML = `
-          <strong>${titlePost}</strong><br>${subtitlePost}
+          <h1>${titlePost}</h1>
+          <p>${subtitlePost}</p>
         `;
 
         // Extract the first image from the content
