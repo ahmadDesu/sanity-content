@@ -52,7 +52,6 @@ fetch(
 
         // Set the title and subtitle for the list item
         listItem.innerHTML = `
-          <img src="#" alt="" class="thumbnail-post" id="thumbnail-post-${post._id}">
           <strong>${titlePost}</strong><br>${subtitlePost}
         `;
 
