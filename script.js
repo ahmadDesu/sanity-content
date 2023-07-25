@@ -30,10 +30,11 @@ fetch(
 
     if (result.length > 0) {
       // remove the placeholder content
-      list.removeChild(firstListItem);
+      //list.removeChild(firstListItem);
 
       result.forEach((post) => {
-        let listItem = document.createElement("li");
+        //let listItem = document.createElement("li");
+        let listItem = firstListItem
 
         // Use the 'name' property as the title
         //let title = post.name || "No Title";
