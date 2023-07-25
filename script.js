@@ -34,6 +34,8 @@ fetch(
 
       result.forEach((post) => {
         let listItem = document.createElement("li");
+
+        listItem.className = "post__list-item";
         //let listItem = firstListItem
 
         // Use the 'name' property as the title
@@ -41,6 +43,9 @@ fetch(
         //let subtitle = "";
         titlePost = post.name || "No Title";
         subtitlePost = "";
+
+        titlePost.className = "title-post";
+        subtitlePost.className = "subtittle-post";
 
         // Extract the first text from the content as the subtitle
         const children = post?.content || [];
@@ -78,6 +83,8 @@ fetch(
         //let thumbnailImg = document.createElement("img");
         let thumbnailImg = document.createElement("img");
         thumbnailImg.src = firstImageSrc;
+
+        thumbnailImg.className = "thumbnail-post";
 
         // thumbnailImg.className = "post__img-thumbnail";
         // You can add additional attributes, styles, and classes to the thumbnail image if needed
