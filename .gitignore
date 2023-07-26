@@ -1,3 +1,7 @@
-const PROJECT_ID = "mih1agps";
-const DATASET = "production";
-const QUERY = encodeURIComponent('*[_type == "post"]');
+data/config.js
+backup-yang-tadi-berhasil.html
+backup.html
+code.html
+image.html
+img1.jpeg
+img2.jpg

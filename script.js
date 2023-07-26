@@ -1,3 +1,4 @@
+import { PROJECT_ID, DATASET, QUERY } from "./data/config";
 // Select the DOM-element, so that you can replace it with content
 let text = document.getElementById("text");
 
