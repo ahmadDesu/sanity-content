@@ -1,5 +1,7 @@
-import { PROJECT_ID, DATASET, QUERY } from "./data/config";
 // Select the DOM-element, so that you can replace it with content
+let PROJECT_ID = process.env.PROJECT_ID;
+let DATASET = process.env.DATASET;
+let QUERY = process.env.QUERY;
 let text = document.getElementById("text");
 
 let titlePost = document.getElementById("title-post");
