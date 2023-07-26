@@ -1,7 +1,7 @@
 // Select the DOM-element, so that you can replace it with content
-let PROJECT_ID = process.env.PROJECT_ID;
-let DATASET = process.env.DATASET;
-let QUERY = process.env.QUERY;
+const PROJECT_ID = "mih1agps";
+const DATASET = "production";
+const QUERY = encodeURIComponent('*[_type == "post"]');
 let text = document.getElementById("text");
 
 let titlePost = document.getElementById("title-post");
