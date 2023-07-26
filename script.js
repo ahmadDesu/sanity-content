@@ -1,7 +1,4 @@
 // Select the DOM-element, so that you can replace it with content
-let PROJECT_ID = "mih1agps";
-let DATASET = "production";
-let QUERY = encodeURIComponent('*[_type == "post"]');
 let text = document.getElementById("text");
 
 let titlePost = document.getElementById("title-post");
